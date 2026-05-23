@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw Web</title>
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    <nav class="bg-gray-800 p-4 border-b border-gray-700">
+        <div class="max-w-6xl mx-auto flex items-center gap-4">
+            <span class="text-2xl">🐺</span>
+            <h1 class="text-xl font-bold">OpenClaw Web</h1>
+            <div class="ml-auto flex gap-4 text-sm">
+                <a href="/" class="hover:text-blue-400">仪表盘</a>
+                <a href="/config" class="hover:text-blue-400">配置</a>
+                <a href="/logs" class="hover:text-blue-400">日志</a>
+                <a href="/skills" class="hover:text-blue-400">技能</a>
+            </div>
+        </div>
+    </nav>
+    <main class="max-w-6xl mx-auto p-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-gray-800 rounded-lg p-4" hx-get="/api/health" hx-trigger="load" hx-swap="innerHTML">
+                <h2 class="text-lg font-semibold mb-2">🔗 Gateway</h2>
+                <div class="text-sm text-gray-400">加载中...</div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-4" hx-get="/api/status" hx-trigger="load,every-30s" hx-swap="innerHTML">
+                <h2 class="text-lg font-semibold mb-2">⚙️ 系统状态</h2>
+                <div class="text-sm text-gray-400">加载中...</div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-4">
+                <h2 class="text-lg font-semibold mb-2">📊 系统资源</h2>
+                <div class="text-sm text-gray-400 hx-trigger="every-30s" hx-get="/api/resources" hx-swap="innerHTML">加载中...</div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
